@@ -22,6 +22,7 @@ class MybatisPlusApplicationTests {
         users.forEach(System.out::println);
         System.out.println("git 变动测试");
         System.out.println("git 变动测试2");
+        System.out.println("hotfix change");
     }
 
 }
