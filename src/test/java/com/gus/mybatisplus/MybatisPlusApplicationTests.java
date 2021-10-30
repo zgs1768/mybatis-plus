@@ -23,7 +23,8 @@ class MybatisPlusApplicationTests {
         System.out.println("git 变动测试");
         System.out.println("git 变动测试2");
         System.out.println("hotfix change");
-        System.out.println("hotfix  change 冲突");
+        System.out.println("hotfix change2 -冲突合并");
+        System.out.println("master  change 冲突");
     }
 
 }
