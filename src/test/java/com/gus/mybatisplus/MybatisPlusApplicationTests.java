@@ -25,6 +25,7 @@ class MybatisPlusApplicationTests {
         System.out.println("hotfix change");
         System.out.println("hotfix change2 -冲突合并");
         System.out.println("master  change 冲突");
+        System.out.println("pushTest  ");
     }
 
 }
