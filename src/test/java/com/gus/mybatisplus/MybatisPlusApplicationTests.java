@@ -21,7 +21,7 @@ class MybatisPlusApplicationTests {
         List<User> users = userMapper.selectList(null);
         users.forEach(System.out::println);
         System.out.println("git 变动测试");
-
+        System.out.println("git 变动测试2");
     }
 
 }
