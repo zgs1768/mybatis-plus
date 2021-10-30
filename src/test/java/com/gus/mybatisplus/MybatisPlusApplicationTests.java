@@ -20,6 +20,8 @@ class MybatisPlusApplicationTests {
     void testSelectList() {
         List<User> users = userMapper.selectList(null);
         users.forEach(System.out::println);
+        System.out.println("git 变动测试");
+
     }
 
 }
