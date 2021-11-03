@@ -17,7 +17,7 @@
     <select id="selectAllByName" resultType="com.gus.mybatisplus.entity.User">
         select <include refid="Base_Column_List"/>
         from t_user
-        where name = #{name}
+        where username = #{name}
     </select>
 <!--    <select id="selectPageByAge" resultMap="myUser">-->
     <select id="selectPageByAge" resultType="com.gus.mybatisplus.entity.User">

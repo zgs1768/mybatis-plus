@@ -1,10 +1,13 @@
 package com.gus.mybatisplus;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.gus.mybatisplus.entity.User;
 import com.gus.mybatisplus.mapper.UserMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.StringUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -101,7 +104,7 @@ public class WrapperTest {
 
         UpdateWrapper<User> userUpdateWrapper = new UpdateWrapper<>();
         userUpdateWrapper
-                .set("age",20)
+                .set("age", 20)
                 .set("email", "renzhichu.@ren.com")
                 .like("username", "人")
                 .and(i ->
@@ -119,9 +122,44 @@ public class WrapperTest {
 
     }
 
+    @Test
+    public void test8() {
+
+        String username = "米";
+        Integer ageBegin = null;
+        Integer ageEnd = 99;
+
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+
+        //前面条件判断是否组装这个查询条件;可以对输入的条件校验
+        //后面lambda 可以避免写错列名
+        lambdaQueryWrapper.like(StringUtils.isNotBlank(username), User::getName, username)
+                .ge(ageBegin != null, User::getAge, ageBegin)
+                .le(ageEnd != null, User::getAge, ageEnd);
+
+        List<User> users = userMapper.selectList(lambdaQueryWrapper);
+        users.forEach(System.out::println);
+
+    }
 
 
+    //    查询名字中包含n，且（年龄小于18或email为空的用户），并将这些用户的年龄设置为18，邮箱设置为 user@atguigu.com
+    @Test
+    public void test9() {
 
+        LambdaUpdateWrapper<User> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+        lambdaUpdateWrapper
+                .set(User::getAge, 20)
+                .set(User::getEmail, "renzhichu.@哈哈哈.com")
+                .like(User::getName, "人")
+                .and(i ->
+                        i.lt(User::getAge, 50)
+                                .or().isNull(User::getEmail));
 
+        //告诉更新的对象,传递时可以更新对应拦截器的字段
+        User user = new User();
+        int update = userMapper.update(user, lambdaUpdateWrapper);
+        System.out.println(update);
 
+    }
 }
